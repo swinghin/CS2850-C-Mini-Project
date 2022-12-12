@@ -116,7 +116,6 @@ void printList(struct list *pList, int *counter)
     printf("\ncounter = %d\n", *counter);
 }
 
-// Listing 7: deAllocateBlock
 void allocateBlock(struct list *pList, int *counter, int nNodes)
 {
     int n = 0;
