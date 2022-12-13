@@ -91,7 +91,7 @@ void *allocator(int size, int *counter)
     if (n != NULL)
     {
         // if so, increase the value of the counter by one
-        *counter = *counter + 1;
+        (*counter)++;
 
         // and return the pointer returned by malloc.
         return n;
@@ -108,7 +108,7 @@ void deAllocator(void *p, int *counter)
         free(p);
 
         // decrease the counter by one
-        *counter = *counter - 1;
+        (*counter)--;
     }
 }
 
@@ -120,7 +120,7 @@ void initialiseList(struct list *pList, int *counter)
 
     // initialise the members of the list as in Listing 1
     pList->head->next = pList->tail;
-    pList->tail->prev = pList->tail;
+    pList->tail->prev = pList->head;
     pList->head->prev = NULL;
     pList->tail->next = NULL;
     pList->head->i = 0;
