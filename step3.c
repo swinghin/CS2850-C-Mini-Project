@@ -52,11 +52,8 @@ int main()
     int i = 0;
     while (i < N)
     {
-        // printf("push:%d\n", i % 9);
         pushInt(&myList, &counter, i % 9);
-        // printf("length:%d\n", (&myList)->length);
         printList(&myList, &counter);
-        // printf("pull:%d\n", i % 9);
         pullInt(&myList, &counter, 0);
         printList(&myList, &counter);
         i++;
