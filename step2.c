@@ -78,7 +78,7 @@ void initialiseList(struct list *pList, int *counter)
     pList->head = allocator(sizeof(struct node), counter);
     pList->tail = allocator(sizeof(struct node), counter);
     pList->head->next = pList->tail;
-    pList->tail->prev = pList->tail;
+    pList->tail->prev = pList->head;
     pList->head->prev = NULL;
     pList->tail->next = NULL;
     pList->head->i = 0;
@@ -122,18 +122,16 @@ void allocateBlock(struct list *pList, int *counter, int nNodes)
     while (n < nNodes)
     {
         // get node after head
-        struct node *temp = pList->left->next;
-
-        // allocate a new object of type struct node by calling allocator
-        struct node *new = allocator(sizeof(struct node), counter);
+        struct node *temp = allocator(sizeof(struct node), counter);
 
         // link the new node to the existing ones so that the doubly-linked structure of the list is preserved
-        new->next = temp;
-        new->prev = pList->left;
-        pList->left->next = new;
+        temp->next = pList->left->next;
+        temp->prev = pList->left;
+        temp->next->prev = temp;
+        pList->left->next = temp;
 
         // set i of the new node to −1
-        new->i = -1;
+        temp->i = -1;
 
         // increase pList->length by one
         (pList->length)++;
@@ -148,7 +146,7 @@ void deAllocateBlock(struct list *pList, int *counter, int nNodes)
     while ((pList->length) > n)
     {
         struct node *temp = pList->left->next;
-        pList->left->next->prev = pList->left;
+        pList->left->next->next->prev = pList->left;
         pList->left->next = temp->next;
         deAllocator(temp, counter);
         (pList->length)--;
