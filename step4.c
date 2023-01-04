@@ -42,7 +42,7 @@ void pullInt(struct list *pList, int *counter, int i);
 void clearList(struct list *pList, int *counter);
 int getInput(char *s);
 
-static int maxInput = 5;
+static int maxInput = 5 * BLOCKSIZE;
 
 // Listing 5: main
 int main()
