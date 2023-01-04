@@ -103,11 +103,14 @@ void freeList(struct list *pList, int *counter)
     {
         deAllocator(pList->head, counter);
         deAllocator(pList->tail, counter);
-        pList->head = NULL;
-        pList->left = NULL;
-        pList->tail = NULL;
-        pList->right = NULL;
-        pList->length = -1;
+        if (!*counter)
+        {
+            pList->head = NULL;
+            pList->left = NULL;
+            pList->tail = NULL;
+            pList->right = NULL;
+            pList->length = -1;
+        }
     }
 }
 

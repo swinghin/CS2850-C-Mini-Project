@@ -94,11 +94,14 @@ void freeList(struct list *pList, int *counter)
     {
         deAllocator(pList->head, counter);
         deAllocator(pList->tail, counter);
-        pList->head = NULL;
-        pList->left = NULL;
-        pList->tail = NULL;
-        pList->right = NULL;
-        pList->length = -1;
+        if (!*counter)
+        {
+            pList->head = NULL;
+            pList->left = NULL;
+            pList->tail = NULL;
+            pList->right = NULL;
+            pList->length = -1;
+        }
     }
 }
 
@@ -119,7 +122,7 @@ void printList(struct list *pList, int *counter)
 void allocateBlock(struct list *pList, int *counter, int nNodes)
 {
     int n = 0;
-    while (n < nNodes)
+    while (nNodes > pList->length)
     {
         // get node after head
         struct node *temp = allocator(sizeof(struct node), counter);
